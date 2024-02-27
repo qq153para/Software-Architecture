@@ -111,20 +111,38 @@ namespace Tasks
 
 		private void SetDone(string idString, bool done)
 		{
-			int id = int.Parse(idString);
-			var identifiedTask = tasks
-				.Select(project => project.Value.FirstOrDefault(task => task.Id == id))
-				.Where(task => task != null)
-				.FirstOrDefault();
-			if (identifiedTask == null) {
-				console.WriteLine("Could not find a task with an ID of {0}.", id);
-				return;
-			}
-
-			identifiedTask.Done = done;
+			var identifiedTask = FindTask(idString);
+            if (identifiedTask == null)
+            {
+                console.WriteLine("Could not find a task with an ID of {0}.", idString);
+                return;
+            }
+            identifiedTask.Done = done;
 		}
 
-		private void Help()
+        private void SetDeadline(string idString,DateTime date)
+        {
+			var identifiedTask = FindTask(idString);
+            if (identifiedTask == null)
+            {
+                console.WriteLine("Could not find a task with an ID of {0}.", idString);
+                return;
+            }
+            identifiedTask.deadline = date;
+        }
+
+		private Task FindTask(string idString)
+		{
+            int id = int.Parse(idString);
+            var identifiedTask = tasks
+                .Select(project => project.Value.FirstOrDefault(task => task.Id == id))
+                .Where(task => task != null)
+                .FirstOrDefault();
+
+			return identifiedTask;
+        }
+
+        private void Help()
 		{
 			console.WriteLine("Commands:");
 			console.WriteLine("  show");
