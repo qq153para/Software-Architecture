@@ -63,7 +63,8 @@ namespace Tasks
 			Execute("check 5");
 			Execute("check 6");
             Execute("setdeadline 1 2024-02-28");
-			Execute("today");
+            Execute("setdeadline 5 2024-02-29");
+            Execute("today");
             ReadLines(
                 "Task Eat more donuts. is due today.",
                 ""
@@ -71,22 +72,41 @@ namespace Tasks
             Execute("delete 7");
 			ReadLines("Task with ID 7 has been deleted.");
             Execute("show");
-			ReadLines(
-				"secrets",
-				"    [x] 1: Eat more donuts.",
-				"    [ ] 2: Destroy all humans.",
-				"",
-				"training",
-				"    [x] 3: Four Elements of Simple Design",
-				"    [ ] 4: SOLID",
-				"    [x] 5: Coupling and Cohesion",
-				"    [x] 6: Primitive Obsession",
+            ReadLines(
+                "secrets",
+                "    [x] 1: Eat more donuts.",
+                "    [ ] 2: Destroy all humans.",
+                "",
+                "training",
+                "    [x] 3: Four Elements of Simple Design",
+                "    [ ] 4: SOLID",
+                "    [x] 5: Coupling and Cohesion",
+                "    [x] 6: Primitive Obsession",
                 //"    [ ] 7: Outside-In TDD",
                 "    [ ] 8: Interaction-Driven Design",
-				""
-			);
-
-			Execute("quit");
+                ""
+            );
+            Execute("viewbydate");
+            ReadLines(
+                "Task 1 - Start Date: 2024/2/29: Eat more donuts.",
+                "Task 2 - Start Date: 2024/2/29: Destroy all humans.",
+                "Task 3 - Start Date: 2024/2/29: Four Elements of Simple Design",
+                "Task 4 - Start Date: 2024/2/29: SOLID",
+                "Task 5 - Start Date: 2024/2/29: Coupling and Cohesion",
+                "Task 6 - Start Date: 2024/2/29: Primitive Obsession",
+                "Task 8 - Start Date: 2024/2/29: Interaction-Driven Design"
+            );
+            Execute("viewbydeadline");
+            ReadLines(
+                "Task 2 - Deadline: 0001/1/1: Destroy all humans.",
+                "Task 3 - Deadline: 0001/1/1: Four Elements of Simple Design",
+                "Task 4 - Deadline: 0001/1/1: SOLID",
+                "Task 6 - Deadline: 0001/1/1: Primitive Obsession",
+                "Task 8 - Deadline: 0001/1/1: Interaction-Driven Design",
+                "Task 1 - Deadline: 2024/2/28: Eat more donuts.",
+                "Task 5 - Deadline: 2024/2/29: Coupling and Cohesion"
+            );
+            Execute("quit");
 		}
 
 		private void Execute(string command)

@@ -40,7 +40,7 @@ namespace Tasks
 			var command = commandRest[0];
 			switch (command) {
 				case "show":
-					Show();
+					ViewByProject();
 					break;
 				case "add":
 					Add(commandRest[1]);
@@ -65,13 +65,19 @@ namespace Tasks
                 case "delete":
                     Delete(commandRest[1]);
                     break;
+                case "viewbydate":
+                    ViewByDate();
+                    break;
+                case "viewbydeadline":
+                    ViewByDeadline();
+                    break;
                 default:
 					Error(command);
 					break;
 			}
 		}
 
-		private void Show()
+		private void ViewByProject()
 		{
 			foreach (var project in tasks) {
 				console.WriteLine(project.Key);
@@ -208,6 +214,25 @@ namespace Tasks
 			console.WriteLine();
         }
 
+        private void ViewByDate()
+        {
+            var sortedTasks = tasks.Values.SelectMany(t => t).OrderBy(t => t.startDate);
+
+            foreach (var task in sortedTasks)
+            {
+                console.WriteLine("Task {0} - Start Date: {1}: {2}", task.Id, task.startDate.ToShortDateString(), task.Description);
+            }
+        }
+
+        private void ViewByDeadline()
+        {
+            var sortedTasks = tasks.Values.SelectMany(t => t).OrderBy(t => t.deadline);
+
+            foreach (var task in sortedTasks)
+            {
+                console.WriteLine("Task {0} - Deadline: {1}: {2}", task.Id, task.deadline.ToShortDateString(), task.Description);
+            }
+        }
         private void Help()
 		{
 			console.WriteLine("Commands:");
