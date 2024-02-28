@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Tasks
 {
@@ -12,7 +11,6 @@ namespace Tasks
 		private readonly IDictionary<string, IList<Task>> tasks = new Dictionary<string, IList<Task>>();
 		private readonly IConsole console;
 
-		private long lastId = 0;
 
 		public static void Main(string[] args)
 		{
@@ -64,7 +62,10 @@ namespace Tasks
 				case "today":
                     Today();
 					break;
-				default:
+                case "delete":
+                    Delete(commandRest[1]);
+                    break;
+                default:
 					Error(command);
 					break;
 			}
@@ -112,6 +113,26 @@ namespace Tasks
             }
 
 		}
+
+		private void Delete(string idString) 
+		{
+			var task = FindTask(idString);
+
+            if (task == null)
+            {
+                console.WriteLine("Could not find a task with an ID of {0}.", idString);
+                return;
+            }
+
+            foreach (var projectTasks in tasks.Values)
+            {
+                if (projectTasks.Remove(task))
+                {
+                    console.WriteLine("Task with ID {0} has been deleted.", idString);
+                    return;
+                }
+            }
+        }
 
 		private void Check(string idString)
 		{
@@ -203,9 +224,5 @@ namespace Tasks
 			console.WriteLine("I don't know what the command \"{0}\" is.", command);
 		}
 
-		private long NextId()
-		{
-			return ++lastId;
-		}
 	}
 }

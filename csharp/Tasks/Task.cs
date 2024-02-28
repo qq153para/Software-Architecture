@@ -12,5 +12,13 @@ namespace Tasks
 		public bool Done { get; set; }
 
         public DateTime deadline { get; set; }
+
+		public DateTime startDate { get; set; }
+
+        public Task()
+        {
+            startDate = DateTime.Today;
+            startDate = DateTime.Today.AddDays(1);
+        }
     }
 }

@@ -64,11 +64,13 @@ namespace Tasks
 			Execute("check 6");
             Execute("setdeadline 1 2024-02-28");
 			Execute("today");
-			ReadLines(
-				"Task Eat more donuts. is due today.",
-				""
-			);
-			Execute("show");
+            ReadLines(
+                "Task Eat more donuts. is due today.",
+                ""
+            );
+            Execute("delete 7");
+			ReadLines("Task with ID 7 has been deleted.");
+            Execute("show");
 			ReadLines(
 				"secrets",
 				"    [x] 1: Eat more donuts.",
@@ -79,8 +81,8 @@ namespace Tasks
 				"    [ ] 4: SOLID",
 				"    [x] 5: Coupling and Cohesion",
 				"    [x] 6: Primitive Obsession",
-				"    [ ] 7: Outside-In TDD",
-				"    [ ] 8: Interaction-Driven Design",
+                //"    [ ] 7: Outside-In TDD",
+                "    [ ] 8: Interaction-Driven Design",
 				""
 			);
 
