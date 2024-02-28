@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Tasks
 {
@@ -40,24 +41,32 @@ namespace Tasks
 			var commandRest = commandLine.Split(" ".ToCharArray(), 2);
 			var command = commandRest[0];
 			switch (command) {
-			case "show":
-				Show();
-				break;
-			case "add":
-				Add(commandRest[1]);
-				break;
-			case "check":
-				Check(commandRest[1]);
-				break;
-			case "uncheck":
-				Uncheck(commandRest[1]);
-				break;
-			case "help":
-				Help();
-				break;
-			default:
-				Error(command);
-				break;
+				case "show":
+					Show();
+					break;
+				case "add":
+					Add(commandRest[1]);
+					break;
+				case "check":
+					Check(commandRest[1]);
+					break;
+				case "uncheck":
+					Uncheck(commandRest[1]);
+					break;
+				case "help":
+					Help();
+					break;
+				case "setdeadline":
+					var subcommandRest = commandRest[1].Split(" ".ToCharArray(), 2);
+					DateTime datetime1 = DateTime.Parse(subcommandRest[1]);
+					SetDeadline(subcommandRest[0], datetime1);
+					break;
+				case "today":
+                    Today();
+					break;
+				default:
+					Error(command);
+					break;
 			}
 		}
 
@@ -79,8 +88,8 @@ namespace Tasks
 			if (subcommand == "project") {
 				AddProject(subcommandRest[1]);
 			} else if (subcommand == "task") {
-				var projectTask = subcommandRest[1].Split(" ".ToCharArray(), 2);
-				AddTask(projectTask[0], projectTask[1]);
+				var projectTask = subcommandRest[1].Split(" ".ToCharArray(), 3);
+				AddTask(projectTask[0], projectTask[1] , projectTask[2]);
 			}
 		}
 
@@ -89,14 +98,19 @@ namespace Tasks
 			tasks[name] = new List<Task>();
 		}
 
-		private void AddTask(string project, string description)
+		private void AddTask(string project, string idString, string description)
 		{
 			if (!tasks.TryGetValue(project, out IList<Task> projectTasks))
 			{
 				Console.WriteLine("Could not find a project with the name \"{0}\".", project);
 				return;
 			}
-			projectTasks.Add(new Task { Id = NextId(), Description = description, Done = false });
+  
+            if (IsValidIdentifier(idString) | FindTask(idString) == null)
+			{
+                projectTasks.Add(new Task { Id = idString, Description = description, Done = false });
+            }
+
 		}
 
 		private void Check(string idString)
@@ -133,13 +147,44 @@ namespace Tasks
 
 		private Task FindTask(string idString)
 		{
-            int id = int.Parse(idString);
             var identifiedTask = tasks
-                .Select(project => project.Value.FirstOrDefault(task => task.Id == id))
+                .Select(project => project.Value.FirstOrDefault(task => task.Id == idString))
                 .Where(task => task != null)
                 .FirstOrDefault();
 
 			return identifiedTask;
+        }
+        private bool IsValidIdentifier(string identifier)
+        {
+
+            foreach (char c in identifier)
+            {
+                if (char.IsWhiteSpace(c) || char.IsSymbol(c) || char.IsPunctuation(c))
+                {
+                    return false; 
+                }
+            }
+
+            return true;
+        }
+        private void Today()
+        {
+            DateTime today = DateTime.Today;
+            foreach (var project in tasks)
+            {
+                foreach (var task in project.Value)
+                {	
+					if (task.deadline != null)
+					{
+                        if (today.Year == task.deadline.Year && today.Month == task.deadline.Month && today.Day == task.deadline.Day)
+                        {
+                            console.WriteLine("Task {0} is due today.", task.Description);
+
+						}
+                    }
+                }
+            }
+			console.WriteLine();
         }
 
         private void Help()
