@@ -13,6 +13,9 @@
 - [x] 分層原則
 - [x] 相依原則
 - [x] 跨層原則
+todo list
+1. Controller 需抽成Interface
+2. Command 需更該建構子以及Function，以利之後新增Command
  _________________
 # Task List &nbsp; [![Build Status](https://travis-ci.org/codurance/task-list.png)](https://travis-ci.org/codurance/task-list)
 
