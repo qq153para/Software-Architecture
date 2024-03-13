@@ -1,30 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Tasks.Concole;
 using Tasks.Controller;
-using Tasks.Entity;
-using Tasks.UseCase;
+
 
 namespace Tasks
 {
-    public sealed class TaskList
+    public sealed class TaskListApp
     {
         private const string QUIT = "quit";
 
         private readonly IConsole console;
         private readonly CommandController commandController;
-        private int id = 1;
 
         public static void Main(string[] args)
         {
-            new TaskList(new RealConsole()).Run();
+            new TaskListApp(new RealConsole()).Run();
         }
 
-        public TaskList(IConsole console)
+        public TaskListApp(IConsole console)
         {
             this.console = console;
-            this.commandController = new CommandController(console);
+            this.commandController = new CommandController();
         }
 
         public void Run()
@@ -37,12 +34,13 @@ namespace Tasks
                 {
                     break;
                 }
-                commandController.Execute(command);
+                List<string> CommandReturn = commandController.Execute(command);
+                foreach (string str in CommandReturn)
+                {
+                    //Console.WriteLine(str);
+                    console.WriteLine(str);
+                }
             }
-        }
-        public int NextId()
-        {
-            return ++id;
         }
 
     }

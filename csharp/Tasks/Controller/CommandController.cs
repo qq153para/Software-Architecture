@@ -1,37 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Tasks.Concole;
-using Tasks.Entity;
-using Tasks.UseCase;
+using Tasks.UseCase.Command;
+using Tasks.UseCase.Message;
 
 namespace Tasks.Controller
 {
     public class CommandController
     {
-        private readonly IConsole console;
-        private readonly IDictionary<string, IList<Task>> tasks = new Dictionary<string, IList<Task>>();
-        private readonly IDictionary<string, CommandBase> commands;
-        public CommandController(IConsole console)
+        private IDictionary<string, CommandBase> commands;
+
+        private IDictionary<string, CommandBase> GetCommands()
         {
-            this.console = console;
-            this.commands = new Dictionary<string, CommandBase>
+            return new Dictionary<string, CommandBase>
             {
-                {"show", new ShowCommand( tasks)},
-                {"add", new AddCommand( tasks)},
-                {"check", new CheckCommand( tasks)},
-                {"uncheck", new UncheckCommand( tasks)},
-                {"help", new HelpCommand( tasks)}
+                {"show", new ShowCommand()},
+                {"add", new AddCommand()},
+                {"check", new CheckCommand()},
+                {"uncheck", new UncheckCommand()},
+                {"help", new HelpCommand()},
+                {"error", new ErrorCommand()}
             };
         }
-
-        public void Execute(String commandLine)
+        public List<string> Execute(String commandLine)
         {
             var commandRest = commandLine.Split(" ".ToCharArray(), 2);
             var commandkey = commandRest[0];
+            var CommandReturn = new ReturnMessage();
+            this.commands = GetCommands();
             if (commands.ContainsKey(commandkey))
-            {
-                var CommandReturn = new List<string>(); ; 
+            {   
                 if (commandRest.Length >= 2)
                 {
                     CommandReturn = commands[commandkey].Execute(commandRest[1]);
@@ -40,13 +37,8 @@ namespace Tasks.Controller
                 {
                     CommandReturn = commands[commandkey].Execute("");
                 }
-
-                foreach (string str in CommandReturn)
-                {
-                    console.WriteLine(str);
-                }
             }
-
+            return CommandReturn.getMessage();
         }
     }
 }

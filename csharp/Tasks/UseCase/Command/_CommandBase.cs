@@ -1,19 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Tasks.Entity;
+using Tasks.UseCase.Message;
 
-namespace Tasks
+namespace Tasks.UseCase.Command
 {
     public abstract class CommandBase
     {
-        public readonly IDictionary<string, IList<Task>> tasks;
-        public int id = 1;
-        public CommandBase(IDictionary<string, IList<Task>> tasks)
-        {
-            this.tasks = tasks;
-        }
+        protected static TaskList tasklist = new TaskList();
+        protected ReturnMessage returnmessage = new ReturnMessage();
+        protected static IDictionary<string, IList<Task>> tasks = tasklist.GetTasks();
 
-        public abstract List<string> Execute(string commandRest);
+        public abstract ReturnMessage Execute(string commandRest);
+
         protected Task FindTask(string idString)
         {
             int id = int.Parse(idString);
@@ -24,18 +23,15 @@ namespace Tasks
 
             return identifiedTask;
         }
-        protected List<string> SetDone(string idString, bool done)
+        protected void SetDone(string idString, bool done)
         {
-            List<string> CommandReturn = new List<string>();
             var identifiedTask = FindTask(idString);
             if (identifiedTask == null)
             {
                 string formattedString = string.Format("Could not find a task with an ID of {0}.", idString);
-                CommandReturn.Add(formattedString);
-                return CommandReturn;
+                returnmessage.AddMessage(formattedString);
             }
             identifiedTask.Done = done;
-            return CommandReturn;
         }
 
     }

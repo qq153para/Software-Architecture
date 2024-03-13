@@ -16,7 +16,7 @@ namespace Tasks
         public void StartTheApplication()
         {
             this.console = new FakeConsole();
-            var taskList = new TaskList(console);
+            var taskList = new TaskListApp(console);
             this.applicationThread = new System.Threading.Thread(() => taskList.Run());
             applicationThread.Start();
         }
@@ -75,6 +75,26 @@ namespace Tasks
                 "    [x] 6: Primitive Obsession",
                 "    [ ] 7: Outside-In TDD",
                 "    [ ] 8: Interaction-Driven Design",
+                ""
+            );
+            Execute("help");
+            ReadLines(
+                "Commands:",
+                "  show",
+                "  add project <project name>",
+                "  add task <project name> <task description>",
+                "  check <task ID>",
+                "  uncheck <task ID>",
+                ""
+            );
+            Execute("help");
+            ReadLines(
+                "Commands:",
+                "  show",
+                "  add project <project name>",
+                "  add task <project name> <task description>",
+                "  check <task ID>",
+                "  uncheck <task ID>",
                 ""
             );
             Execute("quit");

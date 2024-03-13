@@ -3,27 +3,26 @@ using System.Collections.Generic;
 using System.Text;
 using Tasks.Concole;
 using Tasks.Entity;
+using Tasks.UseCase.Message;
 
-namespace Tasks.UseCase
+namespace Tasks.UseCase.Command
 {
     public class ShowCommand : CommandBase
     {
-        public ShowCommand(IDictionary<string, IList<Task>> tasks) : base(tasks) { }
-
-        public override List<string> Execute(string commandRest)
+        public override ReturnMessage Execute(string commandRest)
         {
-            List<string> CommandReturn = new List<string>();
+            //returnmessage.RemoveMessage();
             foreach (var project in tasks)
             {
-                CommandReturn.Add(project.Key);
+                returnmessage.AddMessage(project.Key);
                 foreach (var task in project.Value)
                 {
                     string formattedString = string.Format("    [{0}] {1}: {2}", task.Done ? 'x' : ' ', task.Id, task.Description);
-                    CommandReturn.Add(formattedString);
+                    returnmessage.AddMessage(formattedString);
                 }
-                CommandReturn.Add(string.Empty);
+                returnmessage.AddMessage(string.Empty);
             }
-            return CommandReturn;
+            return returnmessage;
         }
     }
 }
