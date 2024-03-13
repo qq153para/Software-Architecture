@@ -1,3 +1,19 @@
+#總計為四個資料夾及一個UI進入點(TaskListApp.cs)
+- Console
+  - 負責Command line輸入輸出
+- Controller
+  - 負責交付UseCase的輸入與輸出
+- UseCase
+  分成兩個資料夾
+  1. Command : 存放執行Command的規則
+  2. Message : 存放Command回傳的訊息(dto)
+- Entity
+  - 代表應用程式的核心業務邏輯
+
+- [x] 分層原則
+- [x] 相依原則
+- [x] 跨層原則
+ _________________
 # Task List &nbsp; [![Build Status](https://travis-ci.org/codurance/task-list.png)](https://travis-ci.org/codurance/task-list)
 
 This is an example of code obsessed with primitives.
