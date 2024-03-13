@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Tasks.Concole;
 
 namespace Tasks
 {
@@ -27,12 +28,7 @@ namespace Tasks
                 {"add", new AddCommand(this, console, tasks)},
                 {"check", new CheckCommand(this, console, tasks)},
                 {"uncheck", new UncheckCommand(this, console, tasks)},
-                {"help", new HelpCommand(this, console, tasks)},
-                {"setdeadline", new SetDeadlineCommand(this, console, tasks)},
-                {"today", new TodayCommand(this, console, tasks)},
-                {"delete", new DeleteCommand(this, console, tasks)},
-                {"viewbydate", new ViewByDateCommand(this, console, tasks)},
-                {"viewbydeadline", new ViewByDeadlineCommand(this, console, tasks)}
+                {"help", new HelpCommand(this, console, tasks)}
             };
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Tasks.Concole;
 
 
 
@@ -124,116 +125,5 @@ namespace Tasks
             console.WriteLine();
         }
     }
-    public class SetDeadlineCommand : CommandBase
-    {
-
-        public SetDeadlineCommand(TaskList taskList, IConsole console, Dictionary<string, IList<Task>> tasks)
-                : base(taskList, console, tasks) { }
-
-        public override void Execute(string commandRest)
-        {
-            var subcommandRest = commandRest.Split(" ".ToCharArray(), 2);
-            string idString = subcommandRest[0];
-            DateTime date = DateTime.Parse(subcommandRest[1]);
-            var identifiedTask = FindTask(subcommandRest[0]);
-            if (identifiedTask == null)
-            {
-                console.WriteLine("Could not find a task with an ID of {0}.", idString);
-                return;
-            }
-            identifiedTask.deadline = date;
-        }
-
-    }
-
-    public class TodayCommand : CommandBase
-    {
-
-        public TodayCommand(TaskList taskList, IConsole console, Dictionary<string, IList<Task>> tasks)
-                    : base(taskList, console, tasks) { }
-
-        public override void Execute(string commandRest)
-        {
-            DateTime today = DateTime.Today;
-            foreach (var project in tasks)
-            {
-                foreach (var task in project.Value)
-                {
-                    if (task.deadline != null)
-                    {
-                        if (today.Year == task.deadline.Year && today.Month == task.deadline.Month && today.Day == task.deadline.Day)
-                        {
-                            console.WriteLine("Task {0} is due today.", task.Description);
-
-                        }
-                    }
-                }
-            }
-            console.WriteLine();
-        }
-    }
-
-    public class DeleteCommand : CommandBase
-    {
-
-        public DeleteCommand(TaskList taskList, IConsole console, Dictionary<string, IList<Task>> tasks)
-             : base(taskList, console, tasks) { }
-
-        public override void Execute(string commandRest)
-        {
-            String idString = commandRest;
-            var task = FindTask(idString);
-
-            if (task == null)
-            {
-                console.WriteLine("Could not find a task with an ID of {0}.", idString);
-                return;
-            }
-
-            foreach (var projectTasks in tasks.Values)
-            {
-                if (projectTasks.Remove(task))
-                {
-                    console.WriteLine("Task with ID {0} has been deleted.", idString);
-                    return;
-                }
-            }
-        }
-
-    }
-    public class ViewByDateCommand : CommandBase
-    {
-
-        public ViewByDateCommand(TaskList taskList, IConsole console, Dictionary<string, IList<Task>> tasks)
-            : base(taskList, console, tasks) { }
-
-        public override void Execute(string commandRest)
-        {
-            var sortedTasks = tasks.Values.SelectMany(t => t).OrderBy(t => t.startDate);
-
-            foreach (var task in sortedTasks)
-            {
-                console.WriteLine("Task {0} - Start Date: {1}: {2}", task.Id, task.startDate.ToShortDateString(), task.Description);
-            }
-        }
-
-    }
-
-    public class ViewByDeadlineCommand : CommandBase
-    {
-
-        public ViewByDeadlineCommand(TaskList taskList, IConsole console, Dictionary<string, IList<Task>> tasks)
-            : base(taskList, console, tasks) { }
-
-        public override void Execute(string commandRest)
-        {
-            var sortedTasks = tasks.Values.SelectMany(t => t).OrderBy(t => t.deadline);
-
-            foreach (var task in sortedTasks)
-            {
-                console.WriteLine("Task {0} - Deadline: {1}: {2}", task.Id, task.deadline.ToShortDateString(), task.Description);
-            }
-        }
-
-    }
+    
 }

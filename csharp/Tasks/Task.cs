@@ -15,10 +15,5 @@ namespace Tasks
 
         public DateTime startDate { get; set; }
 
-        public Task()
-        {
-            startDate = DateTime.Today;
-            startDate = DateTime.Today.AddDays(1);
-        }
     }
 }
