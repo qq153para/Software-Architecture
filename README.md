@@ -5,10 +5,10 @@
   - 負責交付UseCase的輸入與輸出
 - UseCase
   分成兩個資料夾
-  1. Command : 存放執行Command的規則
+  1. Command : 存放應用程式邏輯
   2. Message : 存放Command回傳的訊息(dto)
 - Entity
-  - 代表應用程式的核心業務邏輯
+  - 存放著核心商業邏輯
 
 - [x] 分層原則
 - [x] 相依原則
