@@ -39,8 +39,8 @@ namespace Tasks
             Execute("show");
 
             Execute("add project secrets");
-            Execute("add task secrets 1 Eat more donuts.");
-            Execute("add task secrets 2 Destroy all humans.");
+            Execute("add task secrets Eat more donuts.");
+            Execute("add task secrets Destroy all humans.");
 
             Execute("show");
             ReadLines(
@@ -51,12 +51,12 @@ namespace Tasks
             );
 
             Execute("add project training");
-            Execute("add task training 3 Four Elements of Simple Design");
-            Execute("add task training 4 SOLID");
-            Execute("add task training 5 Coupling and Cohesion");
-            Execute("add task training 6 Primitive Obsession");
-            Execute("add task training 7 Outside-In TDD");
-            Execute("add task training 8 Interaction-Driven Design");
+            Execute("add task training Four Elements of Simple Design");
+            Execute("add task training SOLID");
+            Execute("add task training Coupling and Cohesion");
+            Execute("add task training Primitive Obsession");
+            Execute("add task training Outside-In TDD");
+            Execute("add task training Interaction-Driven Design");
 
             Execute("check 1");
             Execute("check 3");

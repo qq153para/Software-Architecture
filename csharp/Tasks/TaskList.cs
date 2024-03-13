@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Tasks.Concole;
+using Tasks.Controller;
+using Tasks.Entity;
+using Tasks.UseCase;
 
 namespace Tasks
 {
@@ -9,10 +12,9 @@ namespace Tasks
     {
         private const string QUIT = "quit";
 
-        private readonly Dictionary<string, IList<Task>> tasks = new Dictionary<string, IList<Task>>();
         private readonly IConsole console;
-        private readonly IDictionary<string, CommandBase> commands;
-
+        private readonly CommandController commandController;
+        private int id = 1;
 
         public static void Main(string[] args)
         {
@@ -22,14 +24,7 @@ namespace Tasks
         public TaskList(IConsole console)
         {
             this.console = console;
-            this.commands = new Dictionary<string, CommandBase>
-            {
-                {"show", new ViewByProjectCommand(this, console, tasks)},
-                {"add", new AddCommand(this, console, tasks)},
-                {"check", new CheckCommand(this, console, tasks)},
-                {"uncheck", new UncheckCommand(this, console, tasks)},
-                {"help", new HelpCommand(this, console, tasks)}
-            };
+            this.commandController = new CommandController(console);
         }
 
         public void Run()
@@ -42,35 +37,12 @@ namespace Tasks
                 {
                     break;
                 }
-                Execute(command);
+                commandController.Execute(command);
             }
         }
-
-        private void Execute(string commandLine)
+        public int NextId()
         {
-            var commandRest = commandLine.Split(" ".ToCharArray(), 2);
-            var commandkey = commandRest[0];
-            if (commands.ContainsKey(commandkey))
-            {
-                if (commandRest.Length >= 2)
-                {
-                    commands[commandkey].Execute(commandRest[1]);
-                }
-                else
-                {
-                    commands[commandkey].Execute("");
-                }
-
-            }
-            else
-            {
-                Error(commandkey);
-            }
-        }
-
-        private void Error(string command)
-        {
-            console.WriteLine("I don't know what the command \"{0}\" is.", command);
+            return ++id;
         }
 
     }
