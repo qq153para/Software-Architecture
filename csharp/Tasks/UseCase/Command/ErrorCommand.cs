@@ -4,13 +4,14 @@ using Tasks.UseCase.Message;
 
 namespace Tasks.UseCase.Command
 {
-    public class ErrorCommand : CommandBase
+    public class ErrorCommand : ICommand
     {
-        public override ReturnMessage Execute(string commandRest)
+        public ReturnMessage Execute(string commandRest)
         {
+            ReturnMessage returnMessage = new ReturnMessage();
             string formattedString = string.Format("I don't know what the command \"{0}\" is.", commandRest);
-            returnmessage.AddMessage(formattedString);
-            return returnmessage;
+            returnMessage.AddMessage(formattedString);
+            return returnMessage;
         }
     }
 }

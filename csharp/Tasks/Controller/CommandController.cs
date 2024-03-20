@@ -7,11 +7,11 @@ namespace Tasks.Controller
 {
     public class CommandController
     {
-        private IDictionary<string, CommandBase> commands;
+        private IDictionary<string, ICommand> commands;
 
-        private IDictionary<string, CommandBase> GetCommands()
+        private IDictionary<string, ICommand> GetCommands()
         {
-            return new Dictionary<string, CommandBase>
+            return new Dictionary<string, ICommand>
             {
                 {"show", new ShowCommand()},
                 {"add", new AddCommand()},

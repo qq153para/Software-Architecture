@@ -7,22 +7,24 @@ using Tasks.UseCase.Message;
 
 namespace Tasks.UseCase.Command
 {
-    public class ShowCommand : CommandBase
+    public class ShowCommand : ICommand
     {
-        public override ReturnMessage Execute(string commandRest)
+        public ReturnMessage Execute(string commandRest)
         {
-            //returnmessage.RemoveMessage();
+            ReturnMessage returnMessage = new ReturnMessage();
+            TaskList taskList = TaskList.GetTaskList();
+            IDictionary<string, IList<Task>> tasks = taskList.GetTasks();
             foreach (var project in tasks)
             {
-                returnmessage.AddMessage(project.Key);
+                returnMessage.AddMessage(project.Key);
                 foreach (var task in project.Value)
                 {
                     string formattedString = string.Format("    [{0}] {1}: {2}", task.Done ? 'x' : ' ', task.Id, task.Description);
-                    returnmessage.AddMessage(formattedString);
+                    returnMessage.AddMessage(formattedString);
                 }
-                returnmessage.AddMessage(string.Empty);
+                returnMessage.AddMessage(string.Empty);
             }
-            return returnmessage;
+            return returnMessage;
         }
     }
 }

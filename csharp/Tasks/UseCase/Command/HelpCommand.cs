@@ -6,19 +6,19 @@ using Tasks.UseCase.Message;
 
 namespace Tasks.UseCase.Command
 {
-    public class HelpCommand : CommandBase
+    public class HelpCommand : ICommand
     {
-        public override ReturnMessage Execute(string commandRest)
+        public ReturnMessage Execute(string commandRest)
         {
-            //returnmessage.RemoveMessage();
-            returnmessage.AddMessage("Commands:");
-            returnmessage.AddMessage("  show");
-            returnmessage.AddMessage("  add project <project name>");
-            returnmessage.AddMessage("  add task <project name> <task description>");
-            returnmessage.AddMessage("  check <task ID>");
-            returnmessage.AddMessage("  uncheck <task ID>");
-            returnmessage.AddMessage(string.Empty);
-            return returnmessage;
+            ReturnMessage returnMessage = new ReturnMessage();
+            returnMessage.AddMessage("Commands:");
+            returnMessage.AddMessage("  show");
+            returnMessage.AddMessage("  add project <project name>");
+            returnMessage.AddMessage("  add task <project name> <task description>");
+            returnMessage.AddMessage("  check <task ID>");
+            returnMessage.AddMessage("  uncheck <task ID>");
+            returnMessage.AddMessage(string.Empty);
+            return returnMessage;
 
         }
     }
