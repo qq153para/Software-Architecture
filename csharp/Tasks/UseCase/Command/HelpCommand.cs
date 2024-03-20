@@ -2,23 +2,24 @@
 using System.Collections.Generic;
 using System.Text;
 using Tasks.Entity;
-using Tasks.UseCase.Message;
+using Tasks.UseCase.port.input;
+using Tasks.UseCase.port.UseCaseOutput;
 
 namespace Tasks.UseCase.Command
 {
-    public class HelpCommand : ICommand
+    public class HelpCommand : IUseCase<HelpInput, UseCaseOutput>
     {
-        public ReturnMessage Execute(string commandRest)
+        public UseCaseOutput Execute(HelpInput input)
         {
-            ReturnMessage returnMessage = new ReturnMessage();
-            returnMessage.AddMessage("Commands:");
-            returnMessage.AddMessage("  show");
-            returnMessage.AddMessage("  add project <project name>");
-            returnMessage.AddMessage("  add task <project name> <task description>");
-            returnMessage.AddMessage("  check <task ID>");
-            returnMessage.AddMessage("  uncheck <task ID>");
-            returnMessage.AddMessage(string.Empty);
-            return returnMessage;
+            UseCaseOutput UseCaseOutputData = new UseCaseOutput();
+            UseCaseOutputData.setMessage("Commands:");
+            UseCaseOutputData.setMessage("  show");
+            UseCaseOutputData.setMessage("  add project <project name>");
+            UseCaseOutputData.setMessage("  add task <project name> <task description>");
+            UseCaseOutputData.setMessage("  check <task ID>");
+            UseCaseOutputData.setMessage("  uncheck <task ID>");
+            UseCaseOutputData.setMessage(string.Empty);
+            return UseCaseOutputData;
 
         }
     }

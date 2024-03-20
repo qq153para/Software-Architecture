@@ -1,14 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Tasks.Entity;
-using Tasks.UseCase.Message;
+﻿using Tasks.UseCase.port.input;
+using Tasks.UseCase.port.UseCaseOutput;
 
 
 namespace Tasks.UseCase.Command
 {
-    public interface ICommand
+    public interface IUseCase<I, O>
+        where I : IUseCaseInput
     {
-        public ReturnMessage Execute(string commandRest);
+        O Execute(I input);
     }
 }

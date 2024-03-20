@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tasks.Entity
+namespace Tasks.UseCase.port.input
 {
-    internal class Project
+    public class HelpInput: IUseCaseInput
     {
     }
 }

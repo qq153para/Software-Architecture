@@ -1,17 +1,17 @@
-﻿using System.Collections.Generic;
-using Tasks.Entity;
-using Tasks.UseCase.Message;
+﻿using Tasks.UseCase.port.input;
+using Tasks.UseCase.port.UseCaseOutput;
 
 namespace Tasks.UseCase.Command
 {
-    public class ErrorCommand : ICommand
+    public class ErrorCommand : IUseCase<ErrorInput, UseCaseOutput>
     {
-        public ReturnMessage Execute(string commandRest)
+        public UseCaseOutput Execute(ErrorInput input)
         {
-            ReturnMessage returnMessage = new ReturnMessage();
-            string formattedString = string.Format("I don't know what the command \"{0}\" is.", commandRest);
-            returnMessage.AddMessage(formattedString);
-            return returnMessage;
+            UseCaseOutput UseCaseOutputData = new UseCaseOutput();
+            string UnknownCommand = input.getUnKnownCommand(); 
+            string formattedString = string.Format("I don't know what the command \"{0}\" is.", UnknownCommand);
+            UseCaseOutputData.setMessage(formattedString);
+            return UseCaseOutputData;
         }
     }
 }
