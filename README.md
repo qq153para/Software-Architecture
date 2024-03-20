@@ -1,21 +1,22 @@
 #總計為四個資料夾及一個UI進入點(TaskListApp.cs)
 - Console
   - 負責Command line輸入輸出
-- Controller
+- Adapter
   - 負責交付UseCase的輸入與輸出
 - UseCase
   分成兩個資料夾
   1. Command : 存放應用程式邏輯
-  2. Message : 存放Command回傳的訊息(dto)
+  2. port : 存放UseCase輸入與輸出的物件(dto)
 - Entity
   - 存放著核心商業邏輯
 
 - [x] 分層原則
 - [x] 相依原則
 - [x] 跨層原則
-todo list
-1. Controller 需抽成Interface
-2. Command 需更該建構子以及Function，以利之後新增Command
+
+1. 將Use Case 改為StateLess
+2. Controller 負責Parse所有CommandLine 訊息
+2. 新增UseCaseInput 和 UseCaseOutput
  _________________
 # Task List &nbsp; [![Build Status](https://travis-ci.org/codurance/task-list.png)](https://travis-ci.org/codurance/task-list)
 
