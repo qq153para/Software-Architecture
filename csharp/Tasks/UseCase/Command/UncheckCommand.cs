@@ -10,33 +10,20 @@ namespace Tasks.UseCase.Command
 {
     public class UncheckCommand : ICommand
     {
-        public ReturnMessage Execute(string commandRest)
-        {
-
-            return SetDone(commandRest, false);
-        }
-        protected Task FindTask(string idString)
-        {
-            TaskList taskList = TaskList.GetTaskList();
-            IDictionary<string, IList<Task>> tasks = taskList.GetTasks();
-            int id = int.Parse(idString);
-            var identifiedTask = tasks
-                .Select(project => project.Value.FirstOrDefault(task => task.Id == id))
-                .Where(task => task != null)
-                .FirstOrDefault();
-
-            return identifiedTask;
-        }
-        protected ReturnMessage SetDone(string idString, bool done)
+        public ReturnMessage Execute(string taskid)
         {
             ReturnMessage returnMessage = new ReturnMessage();
-            var identifiedTask = FindTask(idString);
-            if (identifiedTask == null)
+            TaskList taskList = TaskList.GetTaskList();
+            bool Done = false;
+            var task = taskList.FindTask(taskid);
+
+            if (task == null)
             {
-                string formattedString = string.Format("Could not find a task with an ID of {0}.", idString);
+                string formattedString = string.Format("Could not find a task with an ID of {0}.", taskid);
                 returnMessage.AddMessage(formattedString);
+                return returnMessage;
             }
-            identifiedTask.Done = done;
+            task.Done = Done;
             return returnMessage;
         }
 

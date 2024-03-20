@@ -37,7 +37,6 @@ namespace Tasks
                 List<string> CommandReturn = commandController.Execute(command);
                 foreach (string str in CommandReturn)
                 {
-                    //Console.WriteLine(str);
                     console.WriteLine(str);
                 }
             }

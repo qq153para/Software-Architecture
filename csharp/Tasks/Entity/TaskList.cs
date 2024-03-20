@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Tasks.Concole;
 
 namespace Tasks.Entity
 {
@@ -27,5 +29,20 @@ namespace Tasks.Entity
             }
             return taskList;
         }
+        public Task FindTask(string idString)
+        {
+            int id = int.Parse(idString);
+            var identifiedTask = tasks
+                .Select(project => project.Value.FirstOrDefault(task => task.Id == id))
+                .Where(task => task != null)
+                .FirstOrDefault();
+            if (identifiedTask == null)
+            {
+                return null;
+            }
+            return identifiedTask;
+        }
+
+
     }
 }

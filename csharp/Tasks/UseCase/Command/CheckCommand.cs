@@ -7,33 +7,20 @@ namespace Tasks.UseCase.Command
 {
     public class CheckCommand : ICommand
     {
-        public ReturnMessage Execute(string commandRest)
-        {
-
-            return SetDone(commandRest, true);
-        }
-        protected Task FindTask(string idString)
-        {
-            TaskList taskList = TaskList.GetTaskList();
-            IDictionary<string, IList<Task>> tasks = taskList.GetTasks();
-            int id = int.Parse(idString);
-            var identifiedTask = tasks
-                .Select(project => project.Value.FirstOrDefault(task => task.Id == id))
-                .Where(task => task != null)
-                .FirstOrDefault();
-
-            return identifiedTask;
-        }
-        protected ReturnMessage SetDone(string idString, bool done)
+        public ReturnMessage Execute(string taskId)
         {
             ReturnMessage returnMessage = new ReturnMessage();
-            var identifiedTask = FindTask(idString);
-            if (identifiedTask == null)
+            TaskList taskList = TaskList.GetTaskList();
+            bool Done = true;
+            var task = taskList.FindTask(taskId);
+
+            if (task == null)
             {
-                string formattedString = string.Format("Could not find a task with an ID of {0}.", idString);
+                string formattedString = string.Format("Could not find a task with an ID of {0}.", taskId);
                 returnMessage.AddMessage(formattedString);
+                return returnMessage;
             }
-            identifiedTask.Done = done;
+            task.Done = Done;
             return returnMessage;
         }
 

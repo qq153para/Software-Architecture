@@ -15,6 +15,7 @@
 - [x] 跨層原則
 
 1. 將Use Case 改為StateLess
+2. Controller 負責Parse所有CommandLine 訊息
  _________________
 # Task List &nbsp; [![Build Status](https://travis-ci.org/codurance/task-list.png)](https://travis-ci.org/codurance/task-list)
 
