@@ -9,7 +9,7 @@ using Tasks.UseCase.port.UseCaseOutput;
 
 namespace Tasks.UseCase.Command
 {
-    public class UncheckCommand : IUseCase<UncheckInput, UseCaseOutput>
+    public class UncheckCommand : ICommand<UncheckInput, UseCaseOutput>
     {
         public UseCaseOutput Execute(UncheckInput input)
         {

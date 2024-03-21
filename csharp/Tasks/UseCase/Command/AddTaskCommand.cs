@@ -7,7 +7,7 @@ using Tasks.UseCase.port.UseCaseOutput;
 
 namespace Tasks.UseCase.Command
 {
-    public class AddTaskCommand : IUseCase<AddTaskInput, UseCaseOutput>
+    public class AddTaskCommand : ICommand<AddTaskInput, UseCaseOutput>
     {
         public UseCaseOutput Execute(AddTaskInput input)
         {

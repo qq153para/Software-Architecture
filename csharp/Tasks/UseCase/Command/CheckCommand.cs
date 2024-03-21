@@ -6,7 +6,7 @@ using Tasks.UseCase.port.UseCaseOutput;
 
 namespace Tasks.UseCase.Command
 {
-    public class CheckCommand : IUseCase<CheckInput, UseCaseOutput>
+    public class CheckCommand : ICommand<CheckInput, UseCaseOutput>
     {
         public UseCaseOutput Execute(CheckInput input)
         {

@@ -3,7 +3,7 @@ using Tasks.UseCase.port.UseCaseOutput;
 
 namespace Tasks.UseCase.Command
 {
-    public class ErrorCommand : IUseCase<ErrorInput, UseCaseOutput>
+    public class ErrorCommand : ICommand<ErrorInput, UseCaseOutput>
     {
         public UseCaseOutput Execute(ErrorInput input)
         {
