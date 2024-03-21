@@ -12,6 +12,8 @@ namespace Tasks.Entity
         private static TaskList taskList = null;
 
         private int Id = 0;
+
+        protected TaskList() { }
         public IDictionary<string, IList<Task>> GetTasks()
         {
             return tasks;
