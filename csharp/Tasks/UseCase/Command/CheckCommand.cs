@@ -6,15 +6,15 @@ using Tasks.UseCase.port.UseCaseOutput;
 
 namespace Tasks.UseCase.Command
 {
-    public class CheckCommand : IUseCase<CheckInput, UseCaseOutput>
+    public class CheckCommand : ICommand<CheckInput, UseCaseOutput>
     {
         public UseCaseOutput Execute(CheckInput input)
         {
             UseCaseOutput UseCaseOutputData = new UseCaseOutput();
             TaskList taskList = TaskList.GetTaskList();
             bool Done = true;
-            string taskId = input.getTaskId();
-            var task = taskList.FindTask(taskId);
+            long taskId = input.getTaskId();
+            var task = taskList.GetTaskById(taskId);
 
             if (task == null)
             {
@@ -22,7 +22,7 @@ namespace Tasks.UseCase.Command
                 UseCaseOutputData.setMessage(formattedString);
                 return UseCaseOutputData;
             }
-            task.Done = Done;
+            taskList.SetDone(task, Done);
             return UseCaseOutputData;
         }
 

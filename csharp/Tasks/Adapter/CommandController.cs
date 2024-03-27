@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Tasks.Adapter;
 using Tasks.Entity;
 using Tasks.UseCase.Command;
 using Tasks.UseCase.port.input;
@@ -8,7 +9,7 @@ using Tasks.UseCase.port.UseCaseOutput;
 
 namespace Tasks.Controller
 {
-    public class CommandController
+    public class CommandController : IContorller
     {
         public List<string> Execute(String commandLine)
         {
@@ -44,12 +45,12 @@ namespace Tasks.Controller
                     break;
                 case "check":
                     CheckInput checkInputData = new CheckInput();
-                    checkInputData.setTaskId(commandRest[1]);
+                    checkInputData.setTaskId(Convert.ToInt64(commandRest[1]));
                     UseCaseOutputData = new CheckCommand().Execute(checkInputData);
                     break;
                 case "uncheck":
                     UncheckInput uncheckInputData = new UncheckInput();
-                    uncheckInputData.setTaskId(commandRest[1]);
+                    uncheckInputData.setTaskId(Convert.ToInt64(commandRest[1]));
                     UseCaseOutputData = new UncheckCommand().Execute(uncheckInputData);
                     break;
                 case "help":

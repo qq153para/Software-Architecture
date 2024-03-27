@@ -8,15 +8,14 @@ using Tasks.UseCase.port.UseCaseOutput;
 
 namespace Tasks.UseCase.Command
 {
-    public class AddProjectCommand : IUseCase<AddProjectInput, UseCaseOutput>
+    public class AddProjectCommand : ICommand<AddProjectInput, UseCaseOutput>
     {
         public UseCaseOutput Execute(AddProjectInput input)
         {
             var UseCaseOutputData = new UseCaseOutput();
-            string name = input.getProjectName();
+            ProjectName name = input.getProjectName();
             TaskList taskList = TaskList.GetTaskList();
-            IDictionary<string, IList<Task>> tasks = taskList.GetTasks();
-            tasks[name] = new List<Task>();
+            taskList.AddProject(name);
             return UseCaseOutputData;
         }
     }

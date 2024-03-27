@@ -7,7 +7,7 @@ using Tasks.UseCase.port.UseCaseOutput;
 
 namespace Tasks.UseCase.Command
 {
-    public class HelpCommand : IUseCase<HelpInput, UseCaseOutput>
+    public class HelpCommand : ICommand<HelpInput, UseCaseOutput>
     {
         public UseCaseOutput Execute(HelpInput input)
         {

@@ -8,17 +8,17 @@ using Tasks.UseCase.port.UseCaseOutput;
 
 namespace Tasks.UseCase.Command
 {
-    public class ShowCommand : IUseCase<ShowInput, UseCaseOutput>
+    public class ShowCommand : ICommand<ShowInput, UseCaseOutput>
     {
         public UseCaseOutput Execute(ShowInput input)
         {
             UseCaseOutput UseCaseOutputData = new UseCaseOutput();
             TaskList taskList = TaskList.GetTaskList();
-            IDictionary<string, IList<Task>> tasks = taskList.GetTasks();
-            foreach (var project in tasks)
+            IReadOnlyList<Project> ProjectList = taskList.GetProjects();
+            foreach (var project in ProjectList)
             {
-                UseCaseOutputData.setMessage(project.Key);
-                foreach (var task in project.Value)
+                UseCaseOutputData.setMessage(project.GetName().ToString());
+                foreach (var task in project.GetTasks())
                 {
                     string formattedString = string.Format("    [{0}] {1}: {2}", task.Done ? 'x' : ' ', task.Id, task.Description);
                     UseCaseOutputData.setMessage(formattedString);

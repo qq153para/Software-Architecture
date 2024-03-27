@@ -6,14 +6,14 @@ namespace Tasks.UseCase.port.input
 {
     public class CheckInput :  IUseCaseInput
     {
-        private string taskId;
+        private long taskId;
 
-        public void setTaskId(string taskId)
+        public void setTaskId(long taskId)
         {
             this.taskId = taskId;
         }
 
-        public string getTaskId()
+        public long getTaskId()
         {
             return taskId;
         }

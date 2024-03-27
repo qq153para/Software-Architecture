@@ -1,5 +1,5 @@
 #總計為四個資料夾及一個UI進入點(TaskListApp.cs)
-- Console
+- IO
   - 負責Command line輸入輸出
 - Adapter
   - 負責交付UseCase的輸入與輸出
@@ -14,9 +14,8 @@
 - [x] 相依原則
 - [x] 跨層原則
 
-1. 將Use Case 改為StateLess
-2. Controller 負責Parse所有CommandLine 訊息
-2. 新增UseCaseInput 和 UseCaseOutput
+1. 新增Entity : Project , ProjectName
+2. 不應該操作Reference Add 搬回Entity 操作
  _________________
 # Task List &nbsp; [![Build Status](https://travis-ci.org/codurance/task-list.png)](https://travis-ci.org/codurance/task-list)
 
