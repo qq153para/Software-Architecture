@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tasks.Adapter;
 using Tasks.Concole;
 using Tasks.Controller;
 
@@ -11,7 +12,7 @@ namespace Tasks
         private const string QUIT = "quit";
 
         private readonly IConsole console;
-        private readonly CommandController commandController;
+        private readonly IContorller commandController;
 
         public static void Main(string[] args)
         {

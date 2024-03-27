@@ -12,19 +12,17 @@ namespace Tasks.UseCase.Command
         public UseCaseOutput Execute(AddTaskInput input)
         {
             TaskList taskList = TaskList.GetTaskList();
-            IDictionary<string, IList<Task>> tasks = taskList.GetTasks();
-            string project = input.getProjectName();
+            ProjectName project = input.getProjectName();
             string description = input.getTaskDescription();
             var UseCaseOutputData = new UseCaseOutput();
 
-            if (!tasks.TryGetValue(project, out IList<Task> projectTasks))
+            if (!taskList.CheckProjectName(project))
             {
                 string formattedString = string.Format("Could not find a project with the name \"{0}\".", project);
                 UseCaseOutputData.setMessage(formattedString);
                 return UseCaseOutputData;
             }
-            int id = taskList.NextId();
-            projectTasks.Add(new Task { Id = id, Description = description, Done = false });
+            taskList.AddTask(project, description);
             return UseCaseOutputData;
         }
     }

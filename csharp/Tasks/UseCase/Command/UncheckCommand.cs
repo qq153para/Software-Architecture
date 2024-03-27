@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Tasks.Concole;
 using Tasks.Entity;
 using Tasks.UseCase.port.input;
@@ -16,8 +17,8 @@ namespace Tasks.UseCase.Command
             UseCaseOutput UseCaseOutputData = new UseCaseOutput();
             TaskList taskList = TaskList.GetTaskList();
             bool Done = false;
-            string taskid = input.getTaskId(); 
-            var task = taskList.FindTask(taskid);
+            long taskid = input.getTaskId(); 
+            var task = taskList.GetTaskById(taskid);
 
             if (task == null)
             {
@@ -25,7 +26,7 @@ namespace Tasks.UseCase.Command
                 UseCaseOutputData.setMessage(formattedString);
                 return UseCaseOutputData;
             }
-            task.Done = Done;
+            taskList.SetDone(task, Done);
             return UseCaseOutputData;
         }
 
