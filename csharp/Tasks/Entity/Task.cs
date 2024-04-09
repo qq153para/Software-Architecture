@@ -1,23 +1,36 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Tasks.Entity
 {
     public class Task
     {
-        public Task(long Id,string Description,bool Done)
+        private TaskId Id;
+        private string Description;
+        private bool Done;
+        public Task(TaskId id,string description,bool done)
         {
-            this.Id = Id;
-            this.Description = Description; 
-            this.Done = Done;
+            this.Id = id;
+            this.Description = description; 
+            this.Done = done;
         }
-        public long Id { get; set; }
+        public TaskId GetId()
+        {
+            return Id;
+        }
 
-        public string Description { get; set; }
+        public string GetDescription()
+        {
+            return Description;
+        }
 
-        public bool Done { get;private set; }
+        public bool IsDone()
+        {
+            return Done;
+        }
 
-        public void SetDone(bool done)
+        public virtual void SetDone(bool done)
         {
             Done = done;
         }

@@ -12,7 +12,7 @@ namespace Tasks.UseCase.port.input
 
         public void setProjectName(string projectName)
         {
-            this.projectName = new ProjectName(projectName);
+            this.projectName = ProjectName.Of(projectName);
         }
 
         public ProjectName getProjectName()

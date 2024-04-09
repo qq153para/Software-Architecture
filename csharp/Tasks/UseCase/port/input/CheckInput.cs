@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tasks.Entity;
 
 namespace Tasks.UseCase.port.input
 {
     public class CheckInput :  IUseCaseInput
     {
-        private long taskId;
+        private TaskId taskId;
 
         public void setTaskId(long taskId)
         {
-            this.taskId = taskId;
+            this.taskId = TaskId.Of(taskId);
         }
 
-        public long getTaskId()
+        public TaskId getTaskId()
         {
             return taskId;
         }

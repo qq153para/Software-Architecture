@@ -9,16 +9,18 @@ namespace Tasks.Entity
 {
     public class TaskList
     {
-        private readonly List<Project> projectList = new List<Project>();
+        private readonly List<Project> projectList;
         private static TaskList taskList = null;
-
         private int Id = 0;
 
-        protected TaskList() { }
-
-        public int NextId()
+        protected TaskList() 
         {
-            return ++Id ;
+            projectList = new List<Project>();
+        }
+
+        public TaskId NextId()
+        {
+            return TaskId.Of(++Id) ;
         }
         public void AddProject(ProjectName name)
         {
@@ -32,9 +34,18 @@ namespace Tasks.Entity
             project.AddTask(description, NextId());
         }
 
-        public void SetDone(Task task , bool done)
+        public bool SetDoneById(TaskId id , bool done)
         {
+            var task = projectList
+               .Select(project => project.GetTasks().FirstOrDefault(task => task.GetId() == id))
+               .Where(task => task != null)
+               .FirstOrDefault();
+            if (task == null)
+            {
+                return false;
+            }
             task.SetDone(done);
+            return true;
         }
         public static TaskList GetTaskList()
         {
@@ -44,17 +55,16 @@ namespace Tasks.Entity
             }
             return taskList;
         }
-        public Task GetTaskById(long id)
+        public List<Task> GetTasks(ProjectName projectName)
         {
-            var identifiedTask = projectList
-                .Select(project => project.GetTasks().FirstOrDefault(task => task.Id == id))
-                .Where(task => task != null)
-                .FirstOrDefault();
-            if (identifiedTask == null)
+            var project = 
+            projectList.Where(project => project.GetName().Equals(projectName))
+                    .FirstOrDefault();
+            if (project == null)
             {
                 return null;
             }
-            return identifiedTask;
+            return project.GetTasks().Select(t => (Task) new ReadOnlyTask(t.GetId(), t.GetDescription(), t.IsDone())).ToList();
         }
         public bool CheckProjectName(ProjectName projectName)
         {
@@ -70,7 +80,7 @@ namespace Tasks.Entity
 
         public IReadOnlyList<Project> GetProjects()
         {
-            return projectList.AsReadOnly();
+            return projectList.Select(p => new ReadOnlyProject(p.GetName(), p.GetTasks())).ToList();
         }
 
         private Project GetProjectByProjectName(ProjectName projectName)

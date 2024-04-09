@@ -8,11 +8,15 @@ namespace Tasks.Entity
     {
         private readonly string projectName;
 
-        public ProjectName(string projectName)
+        private ProjectName(string projectName)
         {
             this.projectName = projectName;
         }
 
+        public static ProjectName Of(string projectName)
+        {
+            return new ProjectName(projectName);
+        }
         public override string ToString()
         {
             return projectName;

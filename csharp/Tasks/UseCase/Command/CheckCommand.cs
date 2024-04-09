@@ -13,16 +13,15 @@ namespace Tasks.UseCase.Command
             UseCaseOutput UseCaseOutputData = new UseCaseOutput();
             TaskList taskList = TaskList.GetTaskList();
             bool Done = true;
-            long taskId = input.getTaskId();
-            var task = taskList.GetTaskById(taskId);
+            TaskId taskId = input.getTaskId();
+            var IsSuccess = taskList.SetDoneById(taskId, Done);
 
-            if (task == null)
+            if (IsSuccess == false)
             {
                 string formattedString = string.Format("Could not find a task with an ID of {0}.", taskId);
                 UseCaseOutputData.setMessage(formattedString);
                 return UseCaseOutputData;
             }
-            taskList.SetDone(task, Done);
             return UseCaseOutputData;
         }
 

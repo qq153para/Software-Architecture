@@ -22,12 +22,12 @@ namespace Tasks.Entity
             return projectName;
         }
 
-        public IReadOnlyList<Task> GetTasks()
+        public List<Task> GetTasks()
         {
-            return tasks.AsReadOnly();
+            return tasks;
         }
 
-        public void AddTask(string description, long id)
+        public virtual void AddTask(string description, TaskId id)
         {
             Task task = new Task(id, description, false);
             tasks.Add(task);
