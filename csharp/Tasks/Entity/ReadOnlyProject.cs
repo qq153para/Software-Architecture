@@ -17,5 +17,10 @@ namespace Tasks.Entity
             throw new InvalidOperationException("Cannot modify Done property in ReadOnlyTask.");
         }
 
+        public override List<Task> GetTasks()
+        {
+            return tasks.Select(t => (Task)new ReadOnlyTask(t.GetId(), t.GetDescription(), t.IsDone())).ToList();
+        }
+
     }
 }

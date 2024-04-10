@@ -9,7 +9,7 @@ namespace Tasks.Entity
     public class Project
     {
         private readonly ProjectName projectName;
-        private readonly List<Task> tasks;
+        protected readonly List<Task> tasks;
 
         public Project(ProjectName name, List<Task> tasks)
         {
@@ -22,7 +22,7 @@ namespace Tasks.Entity
             return projectName;
         }
 
-        public List<Task> GetTasks()
+        public virtual List<Task> GetTasks()
         {
             return tasks;
         }

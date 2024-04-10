@@ -18,7 +18,7 @@ namespace Tasks.UseCase.Command
             foreach (var project in ProjectList)
             {
                 UseCaseOutputData.setMessage(project.GetName().ToString());
-                foreach (var task in taskList.GetTasks(project.GetName()))
+                foreach (var task in project.GetTasks())
                 {
                     string formattedString = string.Format("    [{0}] {1}: {2}", task.IsDone() ? 'x' : ' ', task.GetId(), task.GetDescription());
                     UseCaseOutputData.setMessage(formattedString);
